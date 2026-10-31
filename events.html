@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>كل الفعاليات | مشوار</title>
+  <meta name="description" content="كل فعاليات دمشق القادمة مع بحث وفلترة حسب التاريخ والتصنيف والمنطقة.">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+
+  <!-- bootstrap rtl version (for arabic) + icons from CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- fonts: Aref Ruqaa for titles, IBM Plex Sans Arabic for text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap">
+
+  <!-- our css after bootstrap so it can override it -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body onload="initEvents()">
+
+  <!-- flags like the damascus fair decorations -->
+  <div class="bunting"></div>
+
+  <!-- header: logo + navbar -->
+  <header class="site-header sticky-top">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/logo.svg" alt="" width="44" height="44">
+          <span>
+            <span class="brand-name">مشوار</span>
+            <span class="brand-tagline">دليل فعاليات دمشق</span>
+          </span>
+        </a>
+
+        <div class="d-flex align-items-center gap-2 order-lg-last">
+          <!-- dark mode button (bonus) -->
+          <button id="themeToggle" class="theme-btn" type="button" onclick="toggleTheme()" title="الوضع الليلي">
+            <i class="bi bi-moon-stars"></i>
+          </button>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                  aria-controls="mainNav" aria-expanded="false" aria-label="فتح القائمة">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto me-lg-3 gap-lg-1 py-2 py-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">الرئيسية</a></li>
+          <li class="nav-item"><a class="nav-link active" href="events.html" aria-current="page">كل الفعاليات</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">عن الدليل</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">اتصل بنا</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- main content -->
+  <main>
+
+    <section class="page-title">
+      <div class="container">
+        <h1>كل الفعاليات</h1>
+        <p>ابحث بالاسم أو المكان، أو صفِّ القائمة حسب التاريخ والتصنيف والمنطقة.</p>
+      </div>
+    </section>
+
+    <section class="pb-5">
+      <div class="container">
+
+        <!-- search + filters -->
+        <form id="filtersForm" class="filters" onsubmit="return false;">
+          <div class="row g-3">
+            <div class="col-lg-5">
+              <label class="form-label" for="searchInput">بحث</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="text" id="searchInput" class="form-control" placeholder="اسم الفعالية أو المكان" onkeyup="filterEvents()">
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <label class="form-label" for="dateFilter">التاريخ</label>
+              <select id="dateFilter" class="form-select" onchange="filterEvents()">
+                <option value="all">كل التواريخ</option>
+                <option value="today">اليوم</option>
+                <option value="week">خلال 7 أيام</option>
+                <option value="month">هذا الشهر</option>
+                <option value="custom">يوم محدد…</option>
+              </select>
+              <input type="date" id="customDate" class="form-control" onchange="filterEvents()" aria-label="اختر اليوم">
+            </div>
+            <div class="col-sm-6 col-lg-3">
+              <label class="form-label" for="areaFilter">المنطقة</label>
+              <select id="areaFilter" class="form-select" onchange="filterEvents()">
+                <option value="">كل المناطق</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <span class="form-label d-block">التصنيف</span>
+            <div class="cat-pills">
+              <button type="button" class="btn cat-pill cat-all" data-cat="all" onclick="setCategory('all', true)">الكل</button>
+              <button type="button" class="btn cat-pill cat-culture" data-cat="culture" onclick="setCategory('culture', true)"><i class="bi bi-book"></i> ثقافة</button>
+              <button type="button" class="btn cat-pill cat-sports" data-cat="sports" onclick="setCategory('sports', true)"><i class="bi bi-trophy"></i> رياضة</button>
+              <button type="button" class="btn cat-pill cat-music" data-cat="music" onclick="setCategory('music', true)"><i class="bi bi-music-note-beamed"></i> موسيقى</button>
+              <button type="button" class="btn cat-pill cat-family" data-cat="family" onclick="setCategory('family', true)"><i class="bi bi-balloon"></i> عائلي</button>
+            </div>
+            <p id="prefNote" class="pref-note mt-2 mb-0"></p>
+          </div>
+        </form>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <p id="resultsCount" class="text-muted mb-0"></p>
+          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="resetFilters()">
+            <i class="bi bi-arrow-counterclockwise"></i> مسح الفلاتر
+          </button>
+        </div>
+
+        <!-- js puts the cards here -->
+        <div id="eventsGrid" class="row g-4"></div>
+
+        <!-- only shows when nothing matches -->
+        <div id="emptyState" class="empty-state">
+          <i class="bi bi-calendar-x"></i>
+          <h2 class="h5 mt-2">لا توجد فعاليات تطابق بحثك</h2>
+          <p class="text-muted">جرّب تصنيفاً آخر أو اختر "كل التواريخ".</p>
+          <button type="button" class="btn btn-primary" onclick="resetFilters()">عرض كل الفعاليات</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- footer: contact info, copyright, social links -->
+  <div class="pixel-strip"></div>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <a class="navbar-brand mb-2" href="index.html">
+            <img src="assets/img/logo.svg" alt="" width="40" height="40">
+            <span class="brand-name">مشوار</span>
+          </a>
+          <p class="mb-0">دليل مجاني لفعاليات دمشق: حفلات، معارض، رياضة، وأنشطة للعائلة، في مكان واحد.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2>الصفحات</h2>
+          <ul class="list-unstyled footer-links">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="events.html">كل الفعاليات</a></li>
+            <li><a href="about.html">عن الدليل</a></li>
+            <li><a href="contact.html">اتصل بنا</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h2>تواصل معنا</h2>
+          <ul class="list-unstyled footer-links">
+            <li><i class="bi bi-envelope"></i> <a href="mailto:info@mishwar.sy">info@mishwar.sy</a></li>
+            <li><i class="bi bi-telephone"></i> <span dir="ltr">+963 11 000 0000</span></li>
+            <li><i class="bi bi-geo-alt"></i> دمشق، سوريا</li>
+          </ul>
+        </div>
+        <div class="col-lg-3">
+          <h2>تابعنا</h2>
+          <div class="social">
+            <a href="#" title="فيسبوك"><i class="bi bi-facebook"></i></a>
+            <a href="#" title="إنستغرام"><i class="bi bi-instagram"></i></a>
+            <a href="#" title="تلغرام"><i class="bi bi-telegram"></i></a>
+            <a href="#" title="يوتيوب"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom d-flex flex-wrap justify-content-between gap-2">
+        <span>© <span id="year">2026</span> مشوار. جميع الحقوق محفوظة.</span>
+        <span>مشروع مقرر BWP401 — الجامعة الافتراضية السورية</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- scroll to top (bonus) -->
+  <button id="scrollTop" type="button" onclick="scrollToTop()" title="الرجوع للأعلى">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <!-- bootstrap js (navbar on mobile + modals), then our files -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>تفاصيل الفعالية | مشوار</title>
+  <meta name="description" content="تفاصيل الفعالية: التاريخ والمكان والخريطة والصور والحجز.">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+
+  <!-- bootstrap rtl version (for arabic) + icons from CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- fonts: Aref Ruqaa for titles, IBM Plex Sans Arabic for text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap">
+
+  <!-- our css after bootstrap so it can override it -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body onload="initEvent()">
+
+  <!-- flags like the damascus fair decorations -->
+  <div class="bunting"></div>
+
+  <!-- header: logo + navbar -->
+  <header class="site-header sticky-top">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/logo.svg" alt="" width="44" height="44">
+          <span>
+            <span class="brand-name">مشوار</span>
+            <span class="brand-tagline">دليل فعاليات دمشق</span>
+          </span>
+        </a>
+
+        <div class="d-flex align-items-center gap-2 order-lg-last">
+          <!-- dark mode button (bonus) -->
+          <button id="themeToggle" class="theme-btn" type="button" onclick="toggleTheme()" title="الوضع الليلي">
+            <i class="bi bi-moon-stars"></i>
+          </button>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                  aria-controls="mainNav" aria-expanded="false" aria-label="فتح القائمة">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto me-lg-3 gap-lg-1 py-2 py-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">الرئيسية</a></li>
+          <li class="nav-item"><a class="nav-link active" href="events.html" aria-current="page">كل الفعاليات</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">عن الدليل</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">اتصل بنا</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- main content -->
+  <main>
+
+    <!-- everything here is filled by js using the id in the link (event.html?id=1) -->
+    <div id="eventContent">
+      <section class="event-hero">
+        <div class="container">
+          <nav aria-label="مسار الصفحة">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="index.html">الرئيسية</a></li>
+              <li class="breadcrumb-item"><a href="events.html">الفعاليات</a></li>
+              <li class="breadcrumb-item active" aria-current="page" id="crumbTitle"></li>
+            </ol>
+          </nav>
+          <div id="eventBadges" class="mt-3"></div>
+          <h1 id="eventTitle" class="misprint"></h1>
+        </div>
+        <div class="skyline-wrap"><svg class="skyline" viewBox="0 0 1200 130" preserveAspectRatio="none" aria-hidden="true">
+        <g fill="currentColor">
+          <rect x="80" y="18" width="12" height="112"/><path d="M86 0l9 20H77z"/>
+          <rect x="1108" y="18" width="12" height="112"/><path d="M1114 0l9 20h-18z"/>
+          <path d="M330 130V85a80 80 0 0 1 160 0v45z"/><path d="M510 130V70a90 90 0 0 1 180 0v60z"/>
+          <path d="M710 130V85a80 80 0 0 1 160 0v45z"/>
+          <path d="M190 130v-30a36 36 0 0 1 72 0v30zM938 130v-30a36 36 0 0 1 72 0v30z"/>
+          <rect x="0" y="112" width="1200" height="18"/>
+        </g>
+      </svg></div>
+      </section>
+
+      <div class="container event-body pb-4">
+        <div class="row g-4">
+
+          <div class="col-lg-8">
+            <div class="poster event-poster">
+              <img id="eventImage" src="assets/img/event-1.svg" alt="">
+            </div>
+
+            <div class="panel mt-4">
+              <h2>عن الفعالية</h2>
+              <p id="eventDescription"></p>
+              <h3 class="h6 mt-4 mb-3">صور من الفعالية <small class="text-muted">(اضغط للتكبير)</small></h3>
+              <div id="gallery" class="row g-2"></div>
+            </div>
+
+            <div class="panel">
+              <h2>الموقع على الخريطة</h2>
+              <figure class="map-figure mb-0">
+                <img src="assets/img/map.svg" alt="خريطة توضح مكان الفعالية">
+                <figcaption id="mapCaption"></figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <aside class="col-lg-4">
+            <div class="panel">
+              <div id="eventTicket" class="mb-3"></div>
+              <dl class="info-list">
+                <dt><i class="bi bi-calendar3"></i></dt>
+                <dd><small>التاريخ</small><span id="eventDate"></span></dd>
+                <dt><i class="bi bi-clock"></i></dt>
+                <dd><small>الوقت</small><span id="eventTime"></span></dd>
+                <dt><i class="bi bi-geo-alt"></i></dt>
+                <dd><small>المكان</small><span id="eventPlace"></span></dd>
+                <dt><i class="bi bi-ticket-perforated"></i></dt>
+                <dd><small>الدخول</small><span id="eventPrice"></span></dd>
+              </dl>
+              <div class="d-grid gap-2 mt-4">
+                <button id="bookBtn" type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal"
+                        data-bs-target="#bookingModal" onclick="resetBooking()">احجز مكانك</button>
+                <a id="calendarBtn" class="btn btn-outline-primary" href="#" target="_blank" rel="noopener">
+                  <i class="bi bi-calendar-plus"></i> أضف للتقويم
+                </a>
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#shareModal">
+                  <i class="bi bi-share"></i> شارك
+                </button>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h2>فعاليات ذات صلة</h2>
+              <div id="relatedEvents"></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <!-- shows if the id in the link is wrong -->
+    <div id="notFound" class="container py-5">
+      <div class="alert alert-warning" role="alert">
+        <h1 class="h4">لم نجد هذه الفعالية</h1>
+        <p class="mb-2">قد يكون الرابط غير مكتمل أو أن الفعالية حُذفت.</p>
+        <a href="events.html" class="btn btn-primary">تصفّح كل الفعاليات</a>
+      </div>
+    </div>
+
+    <!-- gallery image modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-label="صورة مكبرة" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title h6">صورة من الفعالية</h2>
+            <button type="button" class="btn-close ms-0 me-auto" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+          </div>
+          <div class="modal-body p-2">
+            <img id="modalImage" src="assets/img/event-1.svg" alt="صورة مكبرة" class="w-100 rounded">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- booking modal (bonus) -->
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title h5" id="bookingTitle">احجز مكانك في: <span id="bookingEventName"></span></h2>
+            <button type="button" class="btn-close ms-0 me-auto" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+          </div>
+          <div class="modal-body">
+            <form id="bookingForm" onsubmit="return bookSeat()" novalidate>
+              <div class="mb-3">
+                <label for="bookName" class="form-label">الاسم الكامل</label>
+                <input type="text" id="bookName" class="form-control">
+                <div class="invalid-feedback">اكتب اسمك الكامل (3 أحرف على الأقل).</div>
+              </div>
+              <div class="mb-3">
+                <label for="bookPhone" class="form-label">رقم الجوال</label>
+                <input type="tel" id="bookPhone" class="form-control text-end" dir="ltr" placeholder="09xxxxxxxx">
+                <div class="invalid-feedback">رقم الجوال يبدأ بـ 09 ويتكون من 10 أرقام.</div>
+              </div>
+              <div class="mb-4">
+                <label for="bookSeats" class="form-label">عدد المقاعد</label>
+                <select id="bookSeats" class="form-select">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">تأكيد الحجز</button>
+            </form>
+            <div id="bookingResult"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- share modal -->
+    <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title h5" id="shareTitle">شارك الفعالية</h2>
+            <button type="button" class="btn-close ms-0 me-auto" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+          </div>
+          <div class="modal-body">
+            <div class="share-links mb-4">
+              <a id="shareWhatsapp" class="btn btn-success" href="#" target="_blank" rel="noopener"><i class="bi bi-whatsapp"></i> واتساب</a>
+              <a id="shareTelegram" class="btn btn-info text-white" href="#" target="_blank" rel="noopener"><i class="bi bi-telegram"></i> تلغرام</a>
+              <a id="shareFacebook" class="btn btn-primary" href="#" target="_blank" rel="noopener"><i class="bi bi-facebook"></i> فيسبوك</a>
+            </div>
+            <label for="shareLink" class="form-label">أو انسخ الرابط</label>
+            <div class="input-group">
+              <input type="text" id="shareLink" class="form-control" dir="ltr" readonly>
+              <button type="button" class="btn btn-outline-primary" onclick="copyLink()">نسخ</button>
+            </div>
+            <p id="copyNote" class="form-text text-success mb-0"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- footer: contact info, copyright, social links -->
+  <div class="pixel-strip"></div>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <a class="navbar-brand mb-2" href="index.html">
+            <img src="assets/img/logo.svg" alt="" width="40" height="40">
+            <span class="brand-name">مشوار</span>
+          </a>
+          <p class="mb-0">دليل مجاني لفعاليات دمشق: حفلات، معارض، رياضة، وأنشطة للعائلة، في مكان واحد.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2>الصفحات</h2>
+          <ul class="list-unstyled footer-links">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="events.html">كل الفعاليات</a></li>
+            <li><a href="about.html">عن الدليل</a></li>
+            <li><a href="contact.html">اتصل بنا</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h2>تواصل معنا</h2>
+          <ul class="list-unstyled footer-links">
+            <li><i class="bi bi-envelope"></i> <a href="mailto:info@mishwar.sy">info@mishwar.sy</a></li>
+            <li><i class="bi bi-telephone"></i> <span dir="ltr">+963 11 000 0000</span></li>
+            <li><i class="bi bi-geo-alt"></i> دمشق، سوريا</li>
+          </ul>
+        </div>
+        <div class="col-lg-3">
+          <h2>تابعنا</h2>
+          <div class="social">
+            <a href="#" title="فيسبوك"><i class="bi bi-facebook"></i></a>
+            <a href="#" title="إنستغرام"><i class="bi bi-instagram"></i></a>
+            <a href="#" title="تلغرام"><i class="bi bi-telegram"></i></a>
+            <a href="#" title="يوتيوب"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom d-flex flex-wrap justify-content-between gap-2">
+        <span>© <span id="year">2026</span> مشوار. جميع الحقوق محفوظة.</span>
+        <span>مشروع مقرر BWP401 — الجامعة الافتراضية السورية</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- scroll to top (bonus) -->
+  <button id="scrollTop" type="button" onclick="scrollToTop()" title="الرجوع للأعلى">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <!-- bootstrap js (navbar on mobile + modals), then our files -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

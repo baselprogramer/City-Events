@@ -1,0 +1,1041 @@
+/* styles.css - our design on top of bootstrap
+   idea: risograph print look (few strong ink colors, two-color pictures)
+   mixed with the old damascus international fair posters (1954) */
+
+/* colors - all in variables so dark mode only changes these */
+:root {
+  --ink: #1A1A1A;
+  --paper: #F3F2EE;
+  --surface: #FFFFFF;
+  --muted: #5E5A55;
+  --teal: #1690A0;
+  --teal-dark: #0E5F6A;
+  --pink: #FF4FA3;
+  --yellow: #FFBF1F;
+  --green: #1E8F5A;
+}
+
+/* one color per category, --on is the text color on top of it */
+.cat-culture { --cat: #1690A0; --on: #FFFFFF; }
+.cat-sports  { --cat: #1E8F5A; --on: #FFFFFF; }
+.cat-music   { --cat: #FF4FA3; --on: #1A1A1A; }
+.cat-family  { --cat: #FFBF1F; --on: #1A1A1A; }
+.cat-all     { --cat: #1A1A1A; --on: #FFFFFF; }
+
+/* paper texture: small svg noise image repeated on the background */
+body {
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ruqaa font for titles, like the old posters */
+h1, h2, h3, .brand-name, .ruqaa {
+  font-family: "Aref Ruqaa", serif;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+a { color: var(--ink); }
+a:hover { color: var(--teal-dark); }
+
+img { max-width: 100%; }
+
+a:focus-visible, button:focus-visible, .form-control:focus, .form-select:focus {
+  outline: 3px solid var(--pink);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* pink shadow behind the text, looks like the two print layers didn't line up */
+.misprint {
+  text-shadow: 4px 3px 0 var(--pink);
+}
+
+/* bootstrap buttons changed to look printed */
+.btn {
+  border-radius: 0;
+  font-weight: 700;
+}
+.btn-primary {
+  background-color: var(--ink);
+  border: 2px solid var(--ink);
+  color: #fff;
+  box-shadow: 4px 4px 0 var(--pink);
+}
+.btn-primary:hover, .btn-primary:focus {
+  background-color: var(--ink);
+  border-color: var(--ink);
+  color: var(--yellow);
+}
+.btn-primary:active {
+  box-shadow: none;
+  transform: translate(2px, 2px);
+}
+.btn-outline-primary {
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  background-color: transparent;
+}
+.btn-outline-primary:hover {
+  background-color: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.btn-light {
+  background-color: #fff;
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--yellow);
+}
+
+/* ---------- header ---------- */
+/* triangle flags on top of every page (fair decoration) */
+.bunting {
+  height: 26px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='26'%3E%3Cpath d='M0 0h32L16 26z' fill='%23FF4FA3'/%3E%3Cpath d='M32 0h32L48 26z' fill='%231690A0'/%3E%3Cpath d='M64 0h32L80 26z' fill='%23FFBF1F'/%3E%3Cpath d='M96 0h32l-16 26z' fill='%231A1A1A'/%3E%3C/svg%3E") repeat-x;
+}
+
+.site-header {
+  background-color: var(--paper);
+  border-bottom: 3px solid var(--ink);
+}
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+}
+.brand-name {
+  display: block;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--ink);
+  text-shadow: 3px 2px 0 var(--pink);
+}
+.brand-tagline {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.navbar .nav-link {
+  color: var(--ink);
+  font-weight: 600;
+  padding: 6px 12px !important;
+}
+.navbar .nav-link:hover {
+  color: var(--teal-dark);
+}
+.navbar .nav-link.active {
+  color: var(--ink);
+  box-shadow: inset 0 -6px 0 var(--yellow);
+}
+
+.theme-btn {
+  width: 42px;
+  height: 42px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1.1rem;
+}
+.navbar-toggler {
+  border: 2px solid var(--ink);
+  border-radius: 0;
+}
+
+/* ---------- sections ---------- */
+.section {
+  padding: 60px 0;
+}
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+.section-head h2 {
+  font-size: 2.6rem;
+  margin: 0;
+}
+.section-head p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.page-title {
+  padding: 44px 0 10px;
+}
+.page-title h1 {
+  font-size: 3.2rem;
+  margin-bottom: 6px;
+}
+.page-title p {
+  color: var(--muted);
+  max-width: 620px;
+}
+
+/* ---------- home: hero + slider ---------- */
+.hero {
+  position: relative;
+  background-color: var(--teal);
+  color: #fff;
+  padding: 48px 0 150px;
+  overflow: hidden;
+}
+.hero-title {
+  font-size: 3.6rem;
+  margin: 0;
+  color: #fff;
+}
+.hero-lead {
+  font-size: 1.15rem;
+  opacity: 0.95;
+  margin: 6px 0 0;
+}
+
+/* takiyya domes and minarets at the bottom of the hero (svg uses currentColor) */
+.skyline-wrap {
+  color: #0E5F6A;
+}
+.skyline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 130px;
+}
+
+.slider {
+  position: relative;
+  margin-top: 30px;
+  z-index: 1;
+}
+
+/* all slides hidden, only the one with .active shows */
+.slide {
+  display: none;
+}
+.slide.active {
+  display: block;
+  animation: fadeIn 0.7s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* text | poster, with css grid */
+.slide-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+.slide-text h2 {
+  font-size: 2.6rem;
+  margin: 14px 0 8px;
+  color: #fff;
+}
+.slide-text p {
+  font-size: 1.08rem;
+  max-width: 440px;
+}
+
+/* white poster with yellow tape */
+.poster {
+  position: relative;
+  background-color: #fff;
+  padding: 14px;
+  transform: rotate(-2.5deg);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.22);
+}
+.poster::before,
+.poster::after {
+  content: "";
+  position: absolute;
+  top: -14px;
+  width: 110px;
+  height: 30px;
+  background-color: rgba(255, 191, 31, 0.8);
+}
+.poster::before { right: 26px; transform: rotate(5deg); }
+.poster::after  { left: 26px;  transform: rotate(-7deg); }
+
+/* two-color picture (duotone): grey image + multiply on the category color */
+.duo {
+  background-color: var(--cat);
+  overflow: hidden;
+}
+.duo img {
+  display: block;
+  width: 100%;
+  filter: grayscale(1) contrast(1.2) brightness(1.55);
+  mix-blend-mode: multiply;
+}
+.poster .duo img {
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+}
+.poster .ticket {
+  position: absolute;
+  left: -22px;
+  bottom: -22px;
+}
+
+.slider-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 26px;
+}
+.slider-btn {
+  width: 46px;
+  height: 46px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background-color: #fff;
+  color: #1A1A1A;
+  font-size: 1.2rem;
+}
+.slider-dots {
+  display: flex;
+  gap: 8px;
+  margin-right: 10px;
+}
+.slider-dot {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: transparent;
+  padding: 0;
+}
+.slider-dot.active {
+  background-color: var(--yellow);
+  border-color: var(--yellow);
+  width: 32px;
+  border-radius: 8px;
+}
+
+.hero .cat-badge {
+  background-color: #fff;
+  color: #1A1A1A;
+}
+
+/* round date sticker */
+.ticket {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background-color: var(--yellow);
+  color: #1A1A1A;
+  border: 2px solid #1A1A1A;
+  transform: rotate(-8deg);
+  text-align: center;
+  line-height: 1;
+}
+.cat-family .ticket,
+.ticket.cat-family {
+  background-color: var(--pink);
+}
+.ticket-day {
+  font-family: "Aref Ruqaa", serif;
+  font-weight: 700;
+  font-size: 2.1rem;
+}
+.ticket-month {
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+/* today's / next event box */
+.spotlight {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: -46px;
+  padding: 18px 24px;
+  background-color: var(--surface);
+  border: 2px solid var(--ink);
+  box-shadow: 7px 7px 0 var(--cat);
+  z-index: 2;
+}
+.spotlight .ticket {
+  flex-shrink: 0;
+  width: 78px;
+  height: 78px;
+}
+.spotlight-body {
+  flex: 1;
+}
+.spotlight-label {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  background-color: var(--ink);
+  color: var(--paper);
+  padding: 0 10px;
+}
+.spotlight h2 {
+  font-size: 1.6rem;
+}
+
+/* ---------- stamps ---------- */
+/* the holes are small circles in the background, the inside covers the middle
+   so you only see them on the edges */
+.stamp {
+  --edge: var(--surface);
+  background: radial-gradient(circle, var(--paper) 5px, var(--edge) 5.5px) -8px -8px / 16px 16px;
+  padding: 10px;
+}
+
+.cat-tile {
+  --edge: var(--cat);
+  display: block;
+  height: 100%;
+  color: var(--on);
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+.cat-tile:hover {
+  color: var(--on);
+  transform: rotate(-2deg) scale(1.03);
+}
+.stamp-in {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  padding: 22px 12px 18px;
+  background-color: var(--cat);
+  outline: 2px solid currentColor;
+  outline-offset: -8px;
+}
+.cat-tile i {
+  font-size: 2rem;
+}
+.cat-tile-name {
+  font-family: "Aref Ruqaa", serif;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.3;
+}
+.cat-tile small {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* ---------- event cards ---------- */
+.event-card {
+  --edge: var(--surface);
+  background: radial-gradient(circle, var(--paper) 5px, var(--edge) 5.5px) -8px -8px / 16px 16px;
+  outline: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 10px;
+  border: 0;
+  border-radius: 0;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.08));
+  transition: transform 0.2s;
+}
+.event-card:hover {
+  transform: translateY(-4px) rotate(-0.6deg);
+}
+.event-card-media {
+  position: relative;
+  background-color: var(--cat);
+}
+.event-card-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 0;
+  filter: grayscale(1) contrast(1.2) brightness(1.55);
+  mix-blend-mode: multiply;
+}
+.event-card-media .ticket {
+  position: absolute;
+  bottom: -30px;
+  left: 14px;
+  width: 80px;
+  height: 80px;
+}
+.event-card-media .ticket-day {
+  font-size: 1.8rem;
+}
+.event-card .card-body {
+  background-color: var(--surface);
+  border: 2px solid var(--cat);
+  border-top: 0;
+  padding: 18px 18px 20px;
+}
+.event-card .card-title {
+  font-size: 1.45rem;
+  margin: 4px 0 6px;
+}
+.event-meta {
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px dashed var(--ink);
+}
+.event-meta i {
+  margin-left: 4px;
+  color: var(--ink);
+}
+.event-card .card-text {
+  font-size: 0.95rem;
+}
+
+.event-card.is-past .event-card-media {
+  background-color: #B9B6B0;
+}
+
+.status-flag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 2px 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  background-color: #1A1A1A;
+  color: #fff;
+}
+.status-flag.is-today {
+  background-color: var(--pink);
+  color: #1A1A1A;
+}
+.status-flag.is-past {
+  background-color: #6B6B6B;
+}
+.event-hero .status-flag {
+  position: static;
+}
+
+.cat-badge {
+  background-color: var(--cat);
+  color: var(--on);
+  border: 2px solid var(--ink);
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 5px 10px;
+  border-radius: 30px;
+}
+
+/* ---------- events page ---------- */
+.filters {
+  padding: 22px;
+  background-color: var(--surface);
+  border: 2px solid var(--ink);
+  box-shadow: 7px 7px 0 var(--teal);
+  margin-bottom: 26px;
+}
+.filters .form-label {
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.cat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.cat-pill {
+  border: 2px solid var(--ink);
+  border-radius: 30px;
+  background-color: var(--surface);
+  color: var(--ink);
+  font-weight: 600;
+}
+.cat-pill:hover {
+  background-color: var(--paper);
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.cat-pill.active,
+.cat-pill.active:hover {
+  background-color: var(--cat);
+  color: var(--on);
+  border-color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.pref-note {
+  font-size: 0.9rem;
+  color: var(--muted);
+  min-height: 1.5em;
+}
+
+/* shown with js only when "pick a day" is selected */
+#customDate {
+  display: none;
+  margin-top: 8px;
+}
+
+.empty-state {
+  display: none;
+  text-align: center;
+  padding: 50px 20px;
+  border: 3px dashed var(--ink);
+}
+.empty-state i {
+  font-size: 2.6rem;
+}
+
+/* ---------- forms ---------- */
+.form-control,
+.form-select,
+.input-group-text {
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background-color: var(--surface);
+  color: var(--ink);
+}
+.form-control::placeholder {
+  color: #8A857E;
+}
+/* fixed space for the error text, so the form doesn't jump when it shows/hides */
+#contactForm .invalid-feedback {
+  display: block;
+  min-height: 1.6em;
+  margin-top: 2px;
+}
+
+/* ---------- event details page ---------- */
+.event-hero {
+  position: relative;
+  background-color: var(--teal);
+  color: #fff;
+  padding: 34px 0 150px;
+  overflow: hidden;
+}
+.event-hero .container {
+  position: relative;
+  z-index: 1;
+}
+.event-hero .breadcrumb a,
+.event-hero .breadcrumb-item.active,
+.event-hero .breadcrumb-item + .breadcrumb-item::before {
+  color: #fff;
+}
+.event-hero h1 {
+  font-size: 3rem;
+  margin: 12px 0 0;
+}
+.event-hero .skyline {
+  height: 110px;
+}
+
+/* content goes up over the blue sky */
+.event-body {
+  margin-top: -110px;
+  position: relative;
+  z-index: 2;
+}
+.event-poster {
+  transform: rotate(-1deg);
+}
+.event-poster img {
+  display: block;
+  width: 100%;
+}
+
+/* boxes with a black border and a shadow in the category color */
+.panel {
+  background-color: var(--surface);
+  border: 2px solid var(--ink);
+  box-shadow: 7px 7px 0 var(--cat, var(--teal));
+  padding: 24px;
+  margin-bottom: 26px;
+}
+.panel h2 {
+  font-size: 1.7rem;
+  margin-bottom: 12px;
+}
+
+.info-list {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 12px 8px;
+  margin: 0;
+}
+.info-list dt {
+  font-size: 1.2rem;
+}
+.info-list dd {
+  margin: 0;
+  font-weight: 600;
+}
+.info-list small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.gallery-thumb {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 2px solid var(--ink);
+  background: none;
+  overflow: hidden;
+}
+.gallery-thumb img {
+  display: block;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: 70% 50%;
+  transition: transform 0.3s;
+}
+.gallery-thumb:hover img {
+  transform: scale(1.08);
+}
+
+.map-figure img {
+  display: block;
+  border: 2px solid var(--ink);
+}
+.map-figure figcaption {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+.related-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 2px dashed var(--ink);
+  color: var(--ink);
+  text-decoration: none;
+}
+.related-item:last-child {
+  border-bottom: 0;
+}
+.related-item:hover strong {
+  color: var(--teal-dark);
+}
+.related-item .ticket {
+  flex-shrink: 0;
+  width: 66px;
+  height: 66px;
+}
+.related-item .ticket-day {
+  font-size: 1.5rem;
+}
+.related-item .ticket-month {
+  font-size: 0.6rem;
+}
+.related-item small {
+  display: block;
+  color: var(--muted);
+}
+
+.share-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.modal-content {
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  box-shadow: 8px 8px 0 var(--pink);
+}
+
+#notFound {
+  display: none;
+}
+
+/* ---------- about page ---------- */
+.stat {
+  text-align: center;
+  padding: 18px;
+  height: 100%;
+}
+.stat .stamp-in {
+  --cat: var(--surface);
+  color: var(--ink);
+  justify-content: center;
+}
+.stat-number {
+  display: block;
+  font-family: "Aref Ruqaa", serif;
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 1.2;
+  color: var(--teal-dark);
+}
+
+.team-card {
+  text-align: center;
+  padding: 24px 16px;
+  height: 100%;
+  background-color: var(--surface);
+  border: 2px solid var(--ink);
+}
+.team-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  margin-bottom: 12px;
+}
+.team-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 2px;
+}
+.team-card p {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.accordion-item {
+  border: 2px solid var(--ink) !important;
+  border-radius: 0 !important;
+  margin-bottom: 10px;
+  background-color: var(--surface);
+}
+.accordion-button {
+  font-weight: 700;
+  background-color: var(--surface);
+  color: var(--ink);
+  border-radius: 0 !important;
+}
+.accordion-button:not(.collapsed) {
+  background-color: var(--yellow);
+  color: #1A1A1A;
+  box-shadow: none;
+}
+
+/* team table on the home page */
+.project-team {
+  background-color: var(--surface);
+  border: 2px solid var(--ink);
+  box-shadow: 7px 7px 0 var(--yellow);
+  padding: 26px;
+}
+.project-team h2 {
+  font-size: 2rem;
+}
+.project-team table {
+  margin: 0;
+}
+.project-team th {
+  border-bottom: 2px solid var(--ink);
+}
+
+/* ---------- contact page ---------- */
+.contact-card {
+  background-color: var(--surface);
+  border: 2px solid var(--ink);
+  box-shadow: 7px 7px 0 var(--pink);
+  padding: 28px;
+}
+.contact-card h2 {
+  font-size: 1.9rem;
+}
+.contact-info li {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.contact-info i {
+  font-size: 1.3rem;
+  color: var(--teal-dark);
+}
+
+/* ---------- footer ---------- */
+.pixel-strip {
+  height: 40px;
+  margin-top: 50px;
+  background: var(--yellow) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' shape-rendering='crispEdges'%3E%3Cpath fill='%231A1A1A' d='M16 0h8v8h-8zM8 8h8v8H8zM24 8h8v8h-8zM0 16h8v8H0zM16 16h8v8h-8zM32 16h8v8h-8zM8 24h8v8H8zM24 24h8v8h-8zM16 32h8v8h-8z'/%3E%3Cpath fill='%23FF4FA3' d='M8 16h8v8H8zM24 16h8v8h-8z'/%3E%3C/svg%3E");
+}
+.site-footer {
+  padding: 44px 0 20px;
+  background-color: #1A1A1A;
+  color: #D9D6D0;
+}
+.site-footer h2 {
+  color: #fff;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+.site-footer a {
+  color: #D9D6D0;
+  text-decoration: none;
+}
+.site-footer a:hover {
+  color: var(--yellow);
+}
+.site-footer .brand-name {
+  color: #fff;
+}
+.footer-links li {
+  margin-bottom: 6px;
+}
+.social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-left: 6px;
+  border: 2px solid #D9D6D0;
+  border-radius: 50%;
+  font-size: 1.1rem;
+}
+.footer-bottom {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 2px dashed #55524D;
+  font-size: 0.9rem;
+}
+
+/* scroll to top button (bonus), js shows it */
+#scrollTop {
+  display: none;
+  position: fixed;
+  bottom: 22px;
+  left: 22px;
+  z-index: 1000;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #1A1A1A;
+  border-radius: 50%;
+  background-color: var(--yellow);
+  color: #1A1A1A;
+  font-size: 1.3rem;
+  box-shadow: 3px 3px 0 #1A1A1A;
+}
+
+/* ---------- responsive: tablet and mobile ---------- */
+@media (max-width: 991px) {
+  .slide-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .slide-media {
+    order: -1;
+    max-width: 460px;
+    margin: 0 28px;
+  }
+  .hero-title {
+    font-size: 2.7rem;
+  }
+  .slide-text h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 575px) {
+  body {
+    font-size: 16px;
+  }
+  .section {
+    padding: 44px 0;
+  }
+  .hero {
+    padding-bottom: 120px;
+  }
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  .skyline {
+    height: 90px;
+  }
+  .page-title h1, .event-hero h1 {
+    font-size: 2.3rem;
+  }
+  .section-head h2 {
+    font-size: 2.1rem;
+  }
+  .spotlight {
+    flex-wrap: wrap;
+  }
+  .spotlight .btn {
+    width: 100%;
+  }
+  .ticket {
+    width: 78px;
+    height: 78px;
+  }
+}
+
+/* ---------- dark mode (bonus) ----------
+   js adds .dark-mode to body, we just change the variables */
+body.dark-mode {
+  --ink: #EDEAE3;
+  --paper: #18191C;
+  --surface: #23252A;
+  --muted: #A8A39B;
+  --teal: #0F6E7A;
+  --teal-dark: #7FD3DD;
+}
+body.dark-mode .skyline-wrap {
+  color: #093F46;
+}
+body.dark-mode .navbar-toggler {
+  filter: invert(1);
+}
+body.dark-mode .btn-primary {
+  color: #18191C;
+}
+body.dark-mode .btn-primary:hover {
+  color: #18191C;
+  background-color: var(--yellow);
+  border-color: var(--yellow);
+}
+body.dark-mode .btn-light {
+  background-color: var(--surface);
+  color: var(--ink);
+}
+body.dark-mode .slider-btn {
+  background-color: var(--surface);
+  color: var(--ink);
+}
+body.dark-mode .duo img,
+body.dark-mode .event-card-media img {
+  filter: grayscale(1) contrast(1.1) brightness(1.3);
+}
+body.dark-mode .table {
+  --bs-table-bg: var(--surface);
+  --bs-table-color: var(--ink);
+  border-color: #4A4A4A;
+}
+body.dark-mode .text-muted,
+body.dark-mode .form-text {
+  color: var(--muted) !important;
+}
+body.dark-mode .btn-close {
+  filter: invert(1);
+}
+body.dark-mode .modal-content {
+  background-color: var(--surface);
+  color: var(--ink);
+}
+body.dark-mode .accordion-button::after {
+  filter: invert(1);
+}
+body.dark-mode .accordion-button:not(.collapsed)::after {
+  filter: none;
+}

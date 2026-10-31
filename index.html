@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>مشوار | دليل فعاليات دمشق</title>
+  <meta name="description" content="دليل فعاليات مدينة دمشق: حفلات ومعارض ورياضة وأنشطة عائلية قادمة.">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+
+  <!-- bootstrap rtl version (for arabic) + icons from CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- fonts: Aref Ruqaa for titles, IBM Plex Sans Arabic for text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap">
+
+  <!-- our css after bootstrap so it can override it -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body onload="initHome()">
+
+  <!-- flags like the damascus fair decorations -->
+  <div class="bunting"></div>
+
+  <!-- header: logo + navbar -->
+  <header class="site-header sticky-top">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/img/logo.svg" alt="" width="44" height="44">
+          <span>
+            <span class="brand-name">مشوار</span>
+            <span class="brand-tagline">دليل فعاليات دمشق</span>
+          </span>
+        </a>
+
+        <div class="d-flex align-items-center gap-2 order-lg-last">
+          <!-- dark mode button (bonus) -->
+          <button id="themeToggle" class="theme-btn" type="button" onclick="toggleTheme()" title="الوضع الليلي">
+            <i class="bi bi-moon-stars"></i>
+          </button>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                  aria-controls="mainNav" aria-expanded="false" aria-label="فتح القائمة">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto me-lg-3 gap-lg-1 py-2 py-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="index.html" aria-current="page">الرئيسية</a></li>
+          <li class="nav-item"><a class="nav-link" href="events.html">كل الفعاليات</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">عن الدليل</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">اتصل بنا</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- main content -->
+  <main>
+
+    <!-- featured events slider -->
+    <section class="hero" aria-labelledby="featuredTitle">
+      <div class="container">
+        <h1 id="featuredTitle" class="hero-title misprint">ماذا يجري في دمشق هذا الأسبوع؟</h1>
+        <p class="hero-lead">أبرز الفعاليات القادمة، اختارها فريق مشوار.</p>
+
+        <!-- slider stops when the mouse is over it -->
+        <div class="slider" onmouseover="stopSlider()" onmouseout="startSlider()">
+
+          <div class="slide active">
+            <div class="slide-inner cat-music">
+              <div class="slide-text">
+                <span class="badge cat-badge"><i class="bi bi-music-note-beamed"></i> موسيقى</span>
+                <h2 class="misprint">ليلة طرب في خان أسعد باشا</h2>
+                <p>فرقة تخت شرقي تعزف موشحات وقدود حلبية تحت قبة الخان.</p>
+                <p class="small mb-4">
+                  <i class="bi bi-calendar3"></i> السبت ٧ تشرين الثاني، ٨:٠٠ مساءً<br>
+                  <i class="bi bi-geo-alt"></i> خان أسعد باشا، دمشق القديمة
+                </p>
+                <a href="event.html?id=1" class="btn btn-light btn-lg">تفاصيل الفعالية</a>
+              </div>
+              <div class="slide-media">
+                <div class="poster">
+                  <div class="duo"><img src="assets/img/event-1.svg" alt="ليلة طرب في خان أسعد باشا"></div>
+                  <div class="ticket cat-music"><span class="ticket-day">٧</span><span class="ticket-month">تشرين الثاني</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="slide-inner cat-culture">
+              <div class="slide-text">
+                <span class="badge cat-badge"><i class="bi bi-book"></i> ثقافة</span>
+                <h2 class="misprint">معرض الحِرف الدمشقية</h2>
+                <p>حرفيون يعرضون البروكار والموزاييك والنحاس، مع عروض حيّة للصناعة.</p>
+                <p class="small mb-4">
+                  <i class="bi bi-calendar3"></i> من ٥ إلى ١٢ تشرين الثاني، ١٠:٠٠ صباحاً<br>
+                  <i class="bi bi-geo-alt"></i> التكية السليمانية، المرجة
+                </p>
+                <a href="event.html?id=2" class="btn btn-light btn-lg">تفاصيل الفعالية</a>
+              </div>
+              <div class="slide-media">
+                <div class="poster">
+                  <div class="duo"><img src="assets/img/event-2.svg" alt="معرض الحِرف الدمشقية"></div>
+                  <div class="ticket cat-culture"><span class="ticket-day">٥</span><span class="ticket-month">تشرين الثاني</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="slide-inner cat-sports">
+              <div class="slide-text">
+                <span class="badge cat-badge"><i class="bi bi-trophy"></i> رياضة</span>
+                <h2 class="misprint">ماراثون دمشق الخيري</h2>
+                <p>سباق 5 و10 كيلومترات، يذهب ريعه لترميم المدارس.</p>
+                <p class="small mb-4">
+                  <i class="bi bi-calendar3"></i> السبت ١٤ تشرين الثاني، ٧:٣٠ صباحاً<br>
+                  <i class="bi bi-geo-alt"></i> ساحة الأمويين
+                </p>
+                <a href="event.html?id=3" class="btn btn-light btn-lg">تفاصيل الفعالية</a>
+              </div>
+              <div class="slide-media">
+                <div class="poster">
+                  <div class="duo"><img src="assets/img/event-3.svg" alt="ماراثون دمشق الخيري"></div>
+                  <div class="ticket cat-sports"><span class="ticket-day">١٤</span><span class="ticket-month">تشرين الثاني</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="slide-inner cat-music">
+              <div class="slide-text">
+                <span class="badge cat-badge"><i class="bi bi-music-note-beamed"></i> موسيقى</span>
+                <h2 class="misprint">حفل الكورال الشبابي</h2>
+                <p>أربعون صوتاً يغنّون من التراث السوري والعربي بتوزيع جديد.</p>
+                <p class="small mb-4">
+                  <i class="bi bi-calendar3"></i> الجمعة ٤ كانون الأول، ٧:٣٠ مساءً<br>
+                  <i class="bi bi-geo-alt"></i> مسرح الحمراء، الشعلان
+                </p>
+                <a href="event.html?id=8" class="btn btn-light btn-lg">تفاصيل الفعالية</a>
+              </div>
+              <div class="slide-media">
+                <div class="poster">
+                  <div class="duo"><img src="assets/img/event-8.svg" alt="حفل الكورال الشبابي"></div>
+                  <div class="ticket cat-music"><span class="ticket-day">٤</span><span class="ticket-month">كانون الأول</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slider-controls">
+            <button type="button" class="slider-btn prev" onclick="prevSlide()" title="السابق"><i class="bi bi-chevron-right"></i></button>
+            <button type="button" class="slider-btn next" onclick="nextSlide()" title="التالي"><i class="bi bi-chevron-left"></i></button>
+            <div class="slider-dots">
+            <button type="button" class="slider-dot active" onclick="showSlide(0)" title="الشريحة 1"></button>
+            <button type="button" class="slider-dot" onclick="showSlide(1)" title="الشريحة 2"></button>
+            <button type="button" class="slider-dot" onclick="showSlide(2)" title="الشريحة 3"></button>
+            <button type="button" class="slider-dot" onclick="showSlide(3)" title="الشريحة 4"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="skyline-wrap"><svg class="skyline" viewBox="0 0 1200 130" preserveAspectRatio="none" aria-hidden="true">
+        <g fill="currentColor">
+          <rect x="80" y="18" width="12" height="112"/><path d="M86 0l9 20H77z"/>
+          <rect x="1108" y="18" width="12" height="112"/><path d="M1114 0l9 20h-18z"/>
+          <path d="M330 130V85a80 80 0 0 1 160 0v45z"/><path d="M510 130V70a90 90 0 0 1 180 0v60z"/>
+          <path d="M710 130V85a80 80 0 0 1 160 0v45z"/>
+          <path d="M190 130v-30a36 36 0 0 1 72 0v30zM938 130v-30a36 36 0 0 1 72 0v30z"/>
+          <rect x="0" y="112" width="1200" height="18"/>
+        </g>
+      </svg></div>
+    </section>
+
+    <!-- today's event or the next one (js fills it) -->
+    <div class="container">
+      <div id="spotlight"></div>
+    </div>
+
+    <!-- categories -->
+    <section class="section" aria-labelledby="catsTitle">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 id="catsTitle">تصفّح حسب اهتمامك</h2>
+            <p>اختر تصنيفاً لترى فعالياته فقط.</p>
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-6 col-lg-3">
+            <a href="events.html?cat=culture" class="cat-tile stamp cat-culture">
+              <span class="stamp-in">
+                <i class="bi bi-book"></i>
+                <span class="cat-tile-name">ثقافة</span>
+                <small>معارض، سينما، وأمسيات شعر</small>
+              </span>
+            </a>
+          </div>
+          <div class="col-6 col-lg-3">
+            <a href="events.html?cat=sports" class="cat-tile stamp cat-sports">
+              <span class="stamp-in">
+                <i class="bi bi-trophy"></i>
+                <span class="cat-tile-name">رياضة</span>
+                <small>سباقات وبطولات للأحياء</small>
+              </span>
+            </a>
+          </div>
+          <div class="col-6 col-lg-3">
+            <a href="events.html?cat=music" class="cat-tile stamp cat-music">
+              <span class="stamp-in">
+                <i class="bi bi-music-note-beamed"></i>
+                <span class="cat-tile-name">موسيقى</span>
+                <small>طرب، كورال، ومهرجانات</small>
+              </span>
+            </a>
+          </div>
+          <div class="col-6 col-lg-3">
+            <a href="events.html?cat=family" class="cat-tile stamp cat-family">
+              <span class="stamp-in">
+                <i class="bi bi-balloon"></i>
+                <span class="cat-tile-name">عائلي</span>
+                <small>ورشات للأطفال وأيام مفتوحة</small>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- latest events - cards are made by js from data.js -->
+    <section class="section pt-0" aria-labelledby="latestTitle">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 id="latestTitle">أحدث الفعاليات</h2>
+            <p>أقرب ست فعاليات حسب التاريخ.</p>
+          </div>
+          <a href="events.html" class="btn btn-outline-primary">كل الفعاليات</a>
+        </div>
+        <div id="latestEvents" class="row g-4"></div>
+      </div>
+    </section>
+
+    <!-- project team names and ids -->
+    <section class="section pt-0" id="project-team" aria-labelledby="teamTitle">
+      <div class="container">
+        <div class="project-team">
+          <h2 id="teamTitle">فريق المشروع</h2>
+          <p class="text-muted">مقرر برمجة الويب 1 (BWP401) — الجامعة الافتراضية السورية</p>
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">الاسم</th>
+                  <th scope="col">رقم الطالب (ID)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>اسم الطالب الأول</td><td dir="ltr" class="text-start">student_000001</td></tr>
+                <tr><td>2</td><td>اسم الطالب الثاني</td><td dir="ltr" class="text-start">student_000002</td></tr>
+                <tr><td>3</td><td>اسم الطالب الثالث</td><td dir="ltr" class="text-start">student_000003</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- footer: contact info, copyright, social links -->
+  <div class="pixel-strip"></div>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <a class="navbar-brand mb-2" href="index.html">
+            <img src="assets/img/logo.svg" alt="" width="40" height="40">
+            <span class="brand-name">مشوار</span>
+          </a>
+          <p class="mb-0">دليل مجاني لفعاليات دمشق: حفلات، معارض، رياضة، وأنشطة للعائلة، في مكان واحد.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2>الصفحات</h2>
+          <ul class="list-unstyled footer-links">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="events.html">كل الفعاليات</a></li>
+            <li><a href="about.html">عن الدليل</a></li>
+            <li><a href="contact.html">اتصل بنا</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h2>تواصل معنا</h2>
+          <ul class="list-unstyled footer-links">
+            <li><i class="bi bi-envelope"></i> <a href="mailto:info@mishwar.sy">info@mishwar.sy</a></li>
+            <li><i class="bi bi-telephone"></i> <span dir="ltr">+963 11 000 0000</span></li>
+            <li><i class="bi bi-geo-alt"></i> دمشق، سوريا</li>
+          </ul>
+        </div>
+        <div class="col-lg-3">
+          <h2>تابعنا</h2>
+          <div class="social">
+            <a href="#" title="فيسبوك"><i class="bi bi-facebook"></i></a>
+            <a href="#" title="إنستغرام"><i class="bi bi-instagram"></i></a>
+            <a href="#" title="تلغرام"><i class="bi bi-telegram"></i></a>
+            <a href="#" title="يوتيوب"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom d-flex flex-wrap justify-content-between gap-2">
+        <span>© <span id="year">2026</span> مشوار. جميع الحقوق محفوظة.</span>
+        <span>مشروع مقرر BWP401 — الجامعة الافتراضية السورية</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- scroll to top (bonus) -->
+  <button id="scrollTop" type="button" onclick="scrollToTop()" title="الرجوع للأعلى">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <!-- bootstrap js (navbar on mobile + modals), then our files -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

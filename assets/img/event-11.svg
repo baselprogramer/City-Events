@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+<rect width="1200" height="750" fill="#1E8F5A"/>
+<polygon points="-644,750 -574,750 -194,0 -264,0" fill="#145E3B" opacity=".55"/>
+<polygon points="-530,750 -460,750 -80,0 -150,0" fill="#145E3B" opacity=".55"/>
+<polygon points="-428,750 -358,750 22,0 -48,0" fill="#145E3B" opacity=".55"/>
+<polygon points="-315,750 -245,750 135,0 65,0" fill="#145E3B" opacity=".55"/>
+<polygon points="-208,750 -138,750 242,0 172,0" fill="#145E3B" opacity=".55"/>
+<polygon points="-103,750 -33,750 347,0 277,0" fill="#145E3B" opacity=".55"/>
+<polygon points="18,750 88,750 468,0 398,0" fill="#145E3B" opacity=".55"/>
+<polygon points="140,750 210,750 590,0 520,0" fill="#145E3B" opacity=".55"/>
+<polygon points="255,750 325,750 705,0 635,0" fill="#145E3B" opacity=".55"/>
+<polygon points="369,750 439,750 819,0 749,0" fill="#145E3B" opacity=".55"/>
+<polygon points="455,750 525,750 905,0 835,0" fill="#145E3B" opacity=".55"/>
+<polygon points="559,750 629,750 1009,0 939,0" fill="#145E3B" opacity=".55"/>
+<polygon points="695,750 765,750 1145,0 1075,0" fill="#145E3B" opacity=".55"/>
+<polygon points="810,750 880,750 1260,0 1190,0" fill="#145E3B" opacity=".55"/>
+<polygon points="912,750 982,750 1362,0 1292,0" fill="#145E3B" opacity=".55"/>
+<polygon points="990,750 1060,750 1440,0 1370,0" fill="#145E3B" opacity=".55"/>
+<polygon points="1117,750 1187,750 1567,0 1497,0" fill="#145E3B" opacity=".55"/>
+<polygon points="1211,750 1281,750 1661,0 1591,0" fill="#145E3B" opacity=".55"/>
+<polygon points="1351,750 1421,750 1801,0 1731,0" fill="#145E3B" opacity=".55"/>
+<polygon points="1441,750 1511,750 1891,0 1821,0" fill="#145E3B" opacity=".55"/>
+<circle cx="840.0" cy="360.0" r="190" fill="#FFBF1F"/>
+<path d="M650.0,360.0 Q840.0,240.0 1030.0,360.0" fill="none" stroke="#145E3B" stroke-width="14"/>
+<path d="M650.0,360.0 Q840.0,480.0 1030.0,360.0" fill="none" stroke="#145E3B" stroke-width="14"/>
+<line x1="840.0" y1="170.0" x2="840.0" y2="550.0" stroke="#145E3B" stroke-width="14"/>
+</svg>
