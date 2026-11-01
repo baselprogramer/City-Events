@@ -95,20 +95,23 @@
             <div class="poster event-poster">
               <img id="eventImage" src="assets/img/event-1.svg" alt="">
             </div>
+            <p id="photoCredit" class="photo-credit"></p>
 
-            <div class="panel mt-4">
+            <div class="panel mt-3">
               <h2>عن الفعالية</h2>
               <p id="eventDescription"></p>
-              <h3 class="h6 mt-4 mb-3">صور من الفعالية <small class="text-muted">(اضغط للتكبير)</small></h3>
+              <h3 class="h6 mt-4 mb-3">صور من فعاليات مشابهة <small class="text-muted">(اضغط للتكبير)</small></h3>
               <div id="gallery" class="row g-2"></div>
             </div>
 
             <div class="panel">
               <h2>الموقع على الخريطة</h2>
-              <figure class="map-figure mb-0">
-                <img src="assets/img/map.svg" alt="خريطة توضح مكان الفعالية">
-                <figcaption id="mapCaption"></figcaption>
-              </figure>
+              <p class="event-address"><i class="bi bi-geo-alt-fill"></i> <span id="eventAddress"></span></p>
+              <!-- google maps inside an iframe, js puts the place in src -->
+              <iframe id="eventMap" class="map-frame" title="خريطة مكان الفعالية" loading="lazy"></iframe>
+              <a id="mapLink" class="btn btn-outline-primary btn-sm mt-3" href="#" target="_blank" rel="noopener">
+                <i class="bi bi-map"></i> افتح في خرائط Google
+              </a>
             </div>
           </div>
 
@@ -275,7 +278,7 @@
       </div>
       <div class="footer-bottom d-flex flex-wrap justify-content-between gap-2">
         <span>© <span id="year">2026</span> مشوار. جميع الحقوق محفوظة.</span>
-        <span>مشروع مقرر BWP401 — الجامعة الافتراضية السورية</span>
+        <span>محمد باسل الصفدي · BWP401 · C4 — الجامعة الافتراضية السورية</span>
       </div>
     </div>
   </footer>

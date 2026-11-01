@@ -113,6 +113,17 @@ function getParam(name) {
   return "";
 }
 
+// real photos are in assets/img/photos (event-1.jpg, event-2.jpg ...)
+function photoSrc(id) {
+  return "assets/img/photos/event-" + id + ".jpg";
+}
+
+// if a photo is missing we show the drawing (svg) instead, so no broken images
+// (onerror = null so it doesn't loop if the svg is missing too)
+function photoFallback(id) {
+  return ' onerror="this.onerror=null; this.src=\'assets/img/event-' + id + '.svg\'"';
+}
+
 // these functions return html as text, then we put it in the page with innerHTML
 function categoryBadge(cat) {
   return '<span class="badge cat-badge cat-' + cat + '">' +
@@ -153,7 +164,7 @@ function eventCard(ev) {
   return '<div class="col-sm-6 col-lg-4">' +
     '<article class="card event-card h-100 cat-' + ev.category + pastClass + '">' +
       '<div class="event-card-media">' +
-        '<img src="assets/img/event-' + ev.id + '.svg" class="card-img-top" alt="' + ev.title + '" loading="lazy">' +
+        '<img src="' + photoSrc(ev.id) + '"' + photoFallback(ev.id) + ' class="card-img-top" alt="' + ev.title + '" loading="lazy">' +
         ticket(ev) + statusLabel(ev) +
       '</div>' +
       '<div class="card-body d-flex flex-column">' +
@@ -478,10 +489,22 @@ function initEvent() {
   document.getElementById("eventTitle").innerHTML = ev.title;
   document.getElementById("eventBadges").innerHTML = categoryBadge(ev.category) + " " + statusLabel(ev);
   document.getElementById("eventTicket").innerHTML = ticket(ev);
-  document.getElementById("eventImage").src = "assets/img/event-" + ev.id + ".svg";
-  document.getElementById("eventImage").alt = ev.title;
+  var img = document.getElementById("eventImage");
+  img.onerror = function () {
+    img.onerror = null;
+    img.src = "assets/img/event-" + ev.id + ".svg";
+  };
+  img.src = photoSrc(ev.id);
+  img.alt = ev.title;
+  if (ev.credit) {
+    document.getElementById("photoCredit").innerHTML = "الصورة: " + ev.credit;
+  }
   document.getElementById("eventDescription").innerHTML = ev.description;
-  document.getElementById("mapCaption").innerHTML = ev.location + " — " + ev.area + "، دمشق";
+  // real map: google maps embed (works in an iframe without an api key)
+  var place = encodeURIComponent(ev.map);
+  document.getElementById("eventMap").src = "https://maps.google.com/maps?q=" + place + "&hl=ar&z=16&output=embed";
+  document.getElementById("mapLink").href = "https://www.google.com/maps/search/?api=1&query=" + place;
+  document.getElementById("eventAddress").innerHTML = ev.address;
 
   var when = longDate(ev.date);
   if (ev.endDate) {
@@ -505,25 +528,31 @@ function initEvent() {
   }
 }
 
+// gallery: photos of the events from the same category (this one first)
 function showGallery(ev) {
-  var pictures = [
-    "assets/img/event-" + ev.id + ".svg",
-    "assets/img/gallery-" + ev.category + "-1.svg",
-    "assets/img/gallery-" + ev.category + "-2.svg",
-    "assets/img/gallery-" + ev.category + "-3.svg"
-  ];
+  var ids = [ev.id];
+  for (var i = 0; i < EVENTS.length; i++) {
+    if (EVENTS[i].category == ev.category && EVENTS[i].id != ev.id) {
+      ids.push(EVENTS[i].id);
+    }
+  }
+
   var html = "";
-  for (var i = 0; i < pictures.length; i++) {
-    html += '<div class="col-3">' +
+  for (var j = 0; j < ids.length && j < 4; j++) {
+    var other = findEvent(ids[j]);
+    html += '<div class="col-4">' +
       '<button type="button" class="gallery-thumb" data-bs-toggle="modal" data-bs-target="#imageModal"' +
-      ' onclick="openImage(\'' + pictures[i] + '\')" title="تكبير الصورة">' +
-      '<img src="' + pictures[i] + '" alt="صورة ' + (i + 1) + ' من الفعالية"></button></div>';
+      ' onclick="openImage(this)" title="' + other.title + '">' +
+      '<img src="' + photoSrc(other.id) + '"' + photoFallback(other.id) + ' alt="' + other.title + '"></button></div>';
   }
   document.getElementById("gallery").innerHTML = html;
 }
 
-function openImage(src) {
-  document.getElementById("modalImage").src = src;
+// takes the picture from the clicked button and shows it big in the modal
+function openImage(btn) {
+  var small = btn.getElementsByTagName("img")[0];
+  document.getElementById("modalImage").src = small.src;
+  document.getElementById("modalImage").alt = small.alt;
 }
 
 function twoDigits(n) {
